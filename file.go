@@ -39,9 +39,10 @@ type FileDownload struct {
 
 func (d Driver) List(parentFileId ...string) ([]FileItem, error) {
 	//param := `{"drive_id":"53986141","parent_file_id":"root","limit":20,"all":false,"url_expire_sec":14400,"image_thumbnail_process":"image/resize,w_256/format,jpeg","image_url_process":"image/resize,w_1920/format,jpeg/interlace,1","video_thumbnail_process":"video/snapshot,t_1000,f_jpg,ar_auto,w_256","fields":"*","order_by":"updated_at","order_direction":"DESC"}`
-	if len(parentFileId) == 0 {
-		parentFileId = append(parentFileId, "root")
+	if len(parentFileId) == 0 || parentFileId[0] == "" {
+		parentFileId[0] = "root"
 	}
+	log(parentFileId)
 	param := map[string]interface{}{
 		"drive_id":                "53986141",
 		"parent_file_id":          parentFileId[0],
